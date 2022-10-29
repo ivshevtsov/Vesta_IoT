@@ -3,8 +3,8 @@ from numpy import genfromtxt
 import matplotlib.pyplot as plt
 import scipy.stats as st
 
-plt.rcParams["font.family"] = "Century Gothic"
-plt.rcParams["font.size"] = "14"
+#plt.rcParams["font.family"] = "Century Gothic"
+#plt.rcParams["font.size"] = "14"
 
 
 def plot_csv_column(data, column_x, column_y, xlabel, ylabel, percent):
@@ -26,6 +26,12 @@ def plot_csv_hist_column(data, column):
     std = np.std(data[:, column-1])
     plt.title(fr'$\mu$={round(mu/1e6, 2)}МГц, $\sigma$={round(std/1e3, 2)}кГц')
     plt.ylabel('Probability')
+
+    plt.figure()
+    print(len(data[:, column - 1]))
+    for i in range(len(data[:, column-1])):
+        #require give list for histogramm
+        plt.plot(i, np.std(data[:i+1, column-1]),'o', linewidth='2')
 
 
 HOME = 'DATA/PPF/csv'
@@ -50,7 +56,7 @@ plot_csv_column(PVT, column_x=5, column_y=6, xlabel='f, Гц', ylabel='NF, дБ'
 plt.grid()
 
 plt.figure()
-plot_csv_hist_column(TOTAL, column=3)
+plot_csv_hist_column(TOTAL, column=1)
 plt.grid()
 
 plt.show()
