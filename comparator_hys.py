@@ -72,3 +72,7 @@ print(f'Width p hys {Wp_hys}')
 print(f'Common channel length {L}')
 print('###########################')
 print(f'YOU CAN CHANGE LENGTH!!')
+
+V = 1.789
+I = 15e-6
+print(f'Bias resistance {V/I}')
