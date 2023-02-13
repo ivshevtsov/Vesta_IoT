@@ -83,7 +83,7 @@ print(f'IIP3_in = {P1db+10} дБм')
 
 
 #Blocks characteristics
-mode='max'
+mode='min'
 
 if mode =='max':
     # Input power
@@ -137,7 +137,7 @@ else:
 
     VGA_G = (ADC_FS - (IN_Power)) - LNA_G - MIX_G - LPF_G
     VGA_NF = 45
-    VGA_P1dB = 5
+    VGA_P1dB = 3
     VGA_Band = 200e3
     print(f'VGA_GAIN={VGA_G}')
 

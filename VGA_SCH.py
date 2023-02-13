@@ -24,7 +24,9 @@ def plot_csv_hist_column(data, column):
     plt.plot(kde_xs, kde.pdf(kde_xs), label="PDF")
     mu = np.mean(data[:, column-1])
     std = np.std(data[:, column-1])
-    plt.title(fr'$\mu$={round(mu/1e6, 2)}МГц, $\sigma$={round(std/1e3, 2)}кГц')
+    #plt.title(fr'$\mu$={round(mu/1e6, 2)}МГц, $\sigma$={round(std/1e3, 2)}кГц')
+    #plt.title(fr'$\mu$={round(mu, 2)}дБ, $\sigma$={round(std, 2)}дБ')
+    plt.title(fr'$\mu$={round(mu*1000, 2)}мВ, $\sigma$={round(std*1000, 2)}мВ')
     plt.ylabel('Probability')
     '''
     plt.figure()
@@ -38,16 +40,41 @@ def plot_csv_hist_column(data, column):
 
 
 
-HOME = 'DATA/PPF/csv'
-File_PVT = 'gps_pvt_sch.csv'
-File_TOTAL = 'gps_total_sch.csv'
-File_step_dm = 'glo_step_dm_0.5_2.csv'
-File_step_cm = 'glo_step_cm_0.5_2.csv'
+HOME = 'DATA/VGA/csv'
+File_TOTAL = 'vga_total_max_sch.csv'
+File_reg = 'vga_reg_max.csv'
+File_step_dm = 'vga_step_dm.csv'
+File_step_cm = 'vga_step_cm.csv'
 
-PVT = genfromtxt(f'{HOME}/{File_PVT}', delimiter=',', skip_header=1)
+REG = genfromtxt(f'{HOME}/{File_reg}', delimiter=',', skip_header=1)
 TOTAL = genfromtxt(f'{HOME}/{File_TOTAL}', delimiter=',', skip_header=1)
 STEP_DM = genfromtxt(f'{HOME}/{File_step_dm}', delimiter=',', skip_header=1)
 STEP_CM = genfromtxt(f'{HOME}/{File_step_cm}', delimiter=',', skip_header=1)
+
+# plot reg gain
+plt.figure()
+plot_csv_column(REG, column_x=1, column_y=2, xlabel='N', ylabel='Gain, дБ', percent=100)
+plt.grid()
+
+# plot reg band
+plt.figure()
+plot_csv_column(REG, column_x=1, column_y=3, xlabel='N', ylabel='Band, Гц', percent=100)
+plt.grid()
+
+# plot step dm
+plt.figure()
+plot_csv_column(STEP_DM, column_x=1, column_y=2, xlabel='t, c', ylabel='A, В', percent=100)
+plt.grid()
+
+# plot step сm
+plt.figure()
+plot_csv_column(STEP_CM, column_x=1, column_y=2, xlabel='t, c', ylabel='A, В', percent=100)
+plt.grid()
+
+
+
+
+'''
 
 # plot HF
 plt.figure()
@@ -64,18 +91,11 @@ plt.figure()
 plot_csv_column(PVT, column_x=5, column_y=6, xlabel='f, Гц', ylabel='NF, дБ', percent=100)
 plt.grid()
 
-# plot step dm
-plt.figure()
-plot_csv_column(STEP_DM, column_x=1, column_y=2, xlabel='t, c', ylabel='A, В', percent=100)
-plt.grid()
 
-# plot step сm
-plt.figure()
-plot_csv_column(STEP_CM, column_x=1, column_y=2, xlabel='t, c', ylabel='A, В', percent=100)
-plt.grid()
+'''
 
 plt.figure()
-plot_csv_hist_column(TOTAL, column=21)
+plot_csv_hist_column(TOTAL, column=12)
 plt.grid()
 
 plt.show()
