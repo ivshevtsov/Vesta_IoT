@@ -19,9 +19,9 @@ lambda_n=80e-3
 
 ##initial requirements
 
-G_db=20
-f = 3e6
-CL = 1e-12
+G_db=0
+f = 150e6
+CL = 0.5e-12
 PM=70
 Veff=0.2
 L=1e-6
