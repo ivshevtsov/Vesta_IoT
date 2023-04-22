@@ -37,12 +37,11 @@ def plot_csv_hist_column(data, column):
     '''
 
 
-
-HOME = 'DATA/PPF/csv'
-File_PVT = 'gps_pvt_sch.csv'
-File_TOTAL = 'gps_total_sch.csv'
-File_step_dm = 'glo_step_dm_0.5_2.csv'
-File_step_cm = 'glo_step_cm_0.5_2.csv'
+HOME = 'DATA/LPF_SCH/csv'
+File_PVT = 'lpf_pvt_sch.csv'
+File_TOTAL = 'lpf_total_sch.csv'
+File_step_dm = 'lpf_step_dm.csv'
+File_step_cm = 'lpf_step_cm.csv'
 
 PVT = genfromtxt(f'{HOME}/{File_PVT}', delimiter=',', skip_header=1)
 TOTAL = genfromtxt(f'{HOME}/{File_TOTAL}', delimiter=',', skip_header=1)
@@ -52,11 +51,12 @@ STEP_CM = genfromtxt(f'{HOME}/{File_step_cm}', delimiter=',', skip_header=1)
 # plot HF
 plt.figure()
 plot_csv_column(PVT, column_x=1, column_y=2, xlabel='f, Гц', ylabel='HF, дБ', percent=60)
+plt.xscale('log')
 plt.grid()
 
 # plot GD
 plt.figure()
-plot_csv_column(PVT, column_x=3, column_y=4, xlabel='f, Гц', ylabel='GD, с', percent=60)
+plot_csv_column(PVT, column_x=3, column_y=4, xlabel='f, Гц', ylabel='GD, с', percent=20)
 plt.grid()
 
 # plot NF
@@ -75,7 +75,7 @@ plot_csv_column(STEP_CM, column_x=1, column_y=2, xlabel='t, c', ylabel='A, В', 
 plt.grid()
 
 plt.figure()
-plot_csv_hist_column(TOTAL, column=21)
+plot_csv_hist_column(TOTAL, column=11)
 plt.grid()
 
 plt.show()

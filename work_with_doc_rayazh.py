@@ -2,9 +2,16 @@ from docx import Document
 from PIL import Image, ImageDraw
 from openpyxl import load_workbook
 import math
+import openpyxl
+
 
 HOME = 'DATA/EXEL_convert'
-File = 'Bumps.txt'
+File = '2023-02-06-nviot01_top-bump-locations-full-edited.txt'
+
+HOME_EXEL = 'DATA/Pinout_prove_change'
+File_exel = 'VESTA400_06_02_23_V1'
+
+
 
 im = Image.new('RGB', (6000, 10000), 'white')
 draw = ImageDraw.Draw(im)
@@ -15,9 +22,11 @@ D = 100
 R = int(D/2)
 pitch=180
 
+#wb = openpyxl.Workbook()
+#wb.save(f'{HOME}/CHIP_PADS.xlsx')
 
-wb = load_workbook(f'{HOME}/CHIP_PADS.xlsx')
-nsheet=1
+wb = load_workbook(f'{HOME_EXEL}/{File_exel}.xlsx')
+nsheet=7
     # get sheet names
 sheetnames = wb.sheetnames
     # get sheet data
@@ -54,6 +63,6 @@ for line in Bumps:
         else:
             None
 
-wb.save(f'{HOME}/CHIP_PADS.xlsx')
+wb.save(f'{HOME_EXEL}/{File_exel}.xlsx')
 
 im.show()

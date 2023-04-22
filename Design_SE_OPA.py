@@ -11,7 +11,7 @@ upCox=55e-6
 unCox=150e-6
 Cox=4.29e-3
 
-L_test=550e-9
+#L_test=550e-9
 
 lambda_p=40e-3
 lambda_n=80e-3
@@ -61,5 +61,5 @@ print(f'Input transistor width={Wp_IN*1e6} um')
 print(f'Tail transistor width={Wp_TAIL*1e6} um')
 print(f'Load transistor width={Wn_LOAD*1e6} um')
 print(f'Out transistor width={Wn_OUT*1e6} um')
-print(CF)
-print(1/gm2)
+print(f'Feedback capacitance {CF}')
+print(f'Feedback resistance {1/gm2}')
