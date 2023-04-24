@@ -116,7 +116,7 @@ def get_elements_set_chip(str):
 
 
 HOME = 'DATA/Pinout_prove_change'
-File = 'VESTA400_09_02_23'
+File = 'VESTA400_18_04_23'
 wb = load_workbook(f'{HOME}/{File}.xlsx')
 # get sheet names
 sheetnames = wb.sheetnames

@@ -39,10 +39,10 @@ def write_table(directory, file, N_Table, n_rows, ):
 
     doc.save(f'{directory}/{file}')
 
-File_H = 'lna_v1_max_modem_pvt_pex_plot.csv'
-File_L = 'lna_v1_min_modem_pvt_pex_plot.csv'
-Data_H = np.genfromtxt(f'DATA/LNA_MODEM_PEX/csv/{File_H}', delimiter=',', skip_header=1)
-Data_L = np.genfromtxt(f'DATA/LNA_MODEM_PEX/csv/{File_L}', delimiter=',', skip_header=1)
+File_H = 'mix_rx_modem_max_pvt_pex_plot.csv'
+File_L = 'mix_rx_modem_min_pvt_pex_plot.csv'
+Data_H = np.genfromtxt(f'DATA/MIX_RX_MODEM_PEX/csv/{File_H}', delimiter=',', skip_header=1)
+Data_L = np.genfromtxt(f'DATA/MIX_RX_MODEM_PEX/csv/{File_L}', delimiter=',', skip_header=1)
 
 #work with table
 #write_table(directory='DATA/LNA', file='LNA_Results(24.06.22).docx', N_Table=1, n_rows=13)
@@ -51,19 +51,19 @@ Data_L = np.genfromtxt(f'DATA/LNA_MODEM_PEX/csv/{File_L}', delimiter=',', skip_h
 
 #Plot S21/S11
 plt.figure()
-plt.plot(Data_H[10:,4], Data_H[10:,5],label='Gain Max', linewidth=3)
-plt.plot(Data_L[10:,4], Data_L[10:,5],label='Gain Low', linewidth=3)
-plt.plot(Data_H[10:,2], Data_H[10:,3],label='S11', linewidth=3)
+plt.plot(Data_H[:,0], Data_H[:,1],label='Gain Max', linewidth=3)
+plt.plot(Data_L[:,0], Data_L[:,1],label='Gain Low', linewidth=3)
+plt.xscale('log')
 plt.xlabel('F, Гц')
-plt.ylabel('дБ')
+plt.ylabel('Gain, дБ')
 plt.legend()
 plt.grid(which='both', axis='both')
 plt.savefig(f'DATA/LNA/Gain_S11_Max')
 
 #Plot NF
 plt.figure()
-plt.plot(Data_H[10:,0], Data_H[10:,1], label='NF(Gain Max)', linewidth=3)
-plt.plot(Data_L[10:,0], Data_L[10:,1], label='NF(Gain Low)', linewidth=3)
+plt.plot(Data_H[:,2], Data_H[:,3], label='NF(Gain Max)', linewidth=3)
+plt.plot(Data_L[:,2], Data_L[:,3], label='NF(Gain Low)', linewidth=3)
 plt.xlabel('F, Гц')
 plt.ylabel('NF, дБ')
 plt.legend()

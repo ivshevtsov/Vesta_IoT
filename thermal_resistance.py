@@ -1,7 +1,7 @@
 Width_DIE = 10e-3
-Length_DIE=5e-3
+Length_DIE=10e-3
 T_Ambient = 85
-Power = 3
+Power = 5
 
 #Area DIE
 Area_DIE = Width_DIE*Length_DIE

@@ -73,14 +73,14 @@ def exel_dictionary_coord_chip(HOME,File, nsheet, nrow, ncol, pitch, name):
 
 #directory
 HOME = 'DATA/Pinout_prove_change'
-File_package = 'VESTA400_09_02_23'
-File_chip =    'VESTA400_09_02_23_rename'
+File_package = 'VESTA400_18_04_23'
+File_chip =    'VESTA400_18_04_23_rename'
 
 #exel_compare_change_names
 #exel_chip_rename_lay
 #exel_table_for_layouter
 
-exel_dictionary_coord_chip(HOME, File=File_package, nsheet=6, nrow=20, ncol=20, pitch=800, name='package_09_02_23')
-exel_dictionary_coord_chip(HOME, File=File_chip, nsheet=7, nrow=61, ncol=61, pitch=162, name='chip_09_02_23')
+exel_dictionary_coord_chip(HOME, File=File_package, nsheet=6, nrow=20, ncol=20, pitch=800, name='package_18_04_23')
+exel_dictionary_coord_chip(HOME, File=File_chip, nsheet=7, nrow=61, ncol=61, pitch=162, name='chip_18_04_23')
 
 

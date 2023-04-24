@@ -1,10 +1,6 @@
+import numpy as np
 from openpyxl import load_workbook
-
 import re
-
-def has_cyrillic(text):
-    return bool(re.search('[а-яА-Я]', text))
-
 
 def get_bus_elements(str_pack, str_chip):
     #Dictionary
@@ -29,7 +25,7 @@ def get_bus_elements(str_pack, str_chip):
     for i in range(l_num_pack, h_num_pack+1):
         str_pack = str_pack[:left_pack]+f'{i}' #package
         str_chip = str_chip[:left_chip] + f'{i+l_num_chip-l_num_pack}' #chip
-        DIC[str_chip]=str_pack
+        DIC[str_chip]=str_pack.upper()
 
     return DIC
 
@@ -44,23 +40,25 @@ def get_elements(str_pack, str_chip):
             LIST_CHIP = str_chip.replace(' ', '').split(',')
             if len(LIST_CHIP)>1:
                 for i in LIST_CHIP:
-                    DIC[i] = str_pack
+                    DIC[i] = str_pack.upper()
             else:
-                DIC[str_chip] = str_pack
+                DIC[str_chip] = str_pack.upper()
     return DIC
 
 
-def rename_map_chip(sheet, nrow, ncol, DIC):
-    for row in range(2, nrow + 1):
-        for column in range(2, ncol + 1):
-            CHIP_NAME = sheet.cell(row=row, column=column).value
-            if CHIP_NAME in DIC:
-                sheet.cell(row=row, column=column).value = DIC[CHIP_NAME]
+def required_strung(name, delay):
+    return f'PATH tb_top.DUT.GPU.{name} -simport {delay}ps'
 
+def get_key(d, value):
+    for k, v in d.items():
+        if v == value:
+            return k
 
+HOME_DIG = 'DATA\Delays_for_digital'
+FILE_DIG = 'Веста-у_net_delay.rpt'
 
 HOME = 'DATA/Pinout_prove_change'
-File = 'VESTA400_18_04_23'
+File = 'VESTA400_09_02_23'
 wb = load_workbook(f'{HOME}/{File}.xlsx')
 # get sheet names
 sheetnames = wb.sheetnames
@@ -120,9 +118,21 @@ for i in range(4,39+1):
     DIC.update(get_elements(str_pack, str_chip_d))
     DIC.update(get_elements(str_pack, str_chip_a))
 
-print(DIC)
 
-rename_map_chip(sheet_map_chip, 62, 62, DIC)
-wb.save(f'{HOME}/{File}_rename.xlsx')
+file_delays = open(f"{HOME_DIG}/delays.txt", "w")
 
-#generate DIC test
+
+with open(f'{HOME_DIG}/{FILE_DIG}', "r") as file:
+    for line in file:
+        string = line.split()
+        if len(string)>1 and string[0]=='Routed':
+            print(required_strung(string[1], string[2]))
+            file_delays.write(required_strung(get_key(DIC, string[1]), string[2]) + '\n')
+            #if get_key(DIC, string[1])!=None:
+                #file_delays.write(required_strung(get_key(DIC, string[1]), string[2])+'\n')
+            #else:
+                #file_delays.write(required_strung(string[1], string[2]) + '\n')
+
+file_delays.close()
+
+
